@@ -1,0 +1,28 @@
+{
+  "consumerKey": "u1uZycyM5lhnGPajhqBE4cf2h5eEkr8FoXOx1N17ca28ce75!1eddd924f4254d69a0f378e6529d9f650000000000000000",
+  "xmlVersion": "v6",
+  "environment": "Stage1",
+  "checkoutIdentifier": "2a71bf1d66234782b738c1e06a31d624",
+  "PostbackInput": {
+    "approvalCode": "sample",
+    "consumerKey": "u1uZycyM5lhnGPajhqBE4cf2h5eEkr8FoXOx1N17ca28ce75!1eddd924f4254d69a0f378e6529d9f650000000000000000",
+    "expressCheckoutIndicator": false,
+    "postbackUrl": "https://stage.api.mastercard.com/stage1/masterpass/v6/transaction",
+    "precheckoutTransactionId": null,
+    "shipping": 0,
+    "shoppingCart": {
+      "shoppingCartItems": [{
+        "description": "Product",
+        "quantity": 1,
+        "value": 10000
+      }],
+      "currencyCode": "USD",
+      "subtotal": "10000"
+    },
+    "tax": 0,
+    "timezoneOffset": -330,
+    "transactionId": "4346679733105129350",
+    "transactionStatus": "Success",
+    "postbackApiVersion": "v6"
+  }
+}
