@@ -1,6 +1,8 @@
 package com.resrassured.demo;
 
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONObject;
 import org.testng.Assert;
@@ -80,13 +82,24 @@ public class DemoTests {
 		
 		System.out.println("Request Params :" + requestParams.toString());
 		
-		
+		Map<String, String> headerPrams = new HashMap<String, String>();
+		headerPrams.put("Content-Type", "application/json");
+		headerPrams.put("user-agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+		 
+		httpRequest.headers(headerPrams);
 		httpRequest.body(requestParams.toString());
 		Response response = httpRequest.request(Method.POST, "/POSTS");
 		//Response response = httpRequest.post("/POSTS");
 
 		int statusCode = response.getStatusCode();
 		Assert.assertEquals(statusCode, 201);
+		
+		System.out.println("Value 1 : \n" +  response.contentType());
+		System.out.println("Value 2 : \n" +  response.getContentType());
+
+		System.out.println("Value 3 : \n" +  response.getTime());
+		System.out.println("Value 4 : \n" +  response.getHeader("content-type"));
+		System.out.println("Value 5 : \n" +  response.getHeaders());
 		//String successCode = response.jsonPath().get("SuccessCode");
 		//Assert.assertEquals(successCode, "OPERATION_SUCCESS", "Correct Success code was returned");
 
