@@ -1,4 +1,4 @@
-package com.resrassured.utilities;
+package com.restassured.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;

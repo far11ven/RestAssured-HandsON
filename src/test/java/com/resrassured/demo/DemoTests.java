@@ -1,5 +1,8 @@
 package com.resrassured.demo;
 
+import static io.restassured.RestAssured.get;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +11,7 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.resrassured.utilities.FileOperations;
+import com.restassured.utilities.FileOperations;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
@@ -17,7 +20,7 @@ import io.restassured.specification.RequestSpecification;
 
 public class DemoTests {
 
-	/*@Test
+	@Test
 	public void testingGETMethod() {
 
 		System.out.println("Running Demo Test1 (GET) ====");
@@ -38,20 +41,25 @@ public class DemoTests {
 		// we have recieved from the server
 		String responseBody = response.getBody().asString();
 		System.out.println("Response Body is =>  " + responseBody);
+		
+		//JSON Schema Matcher
+		
+		String schema = FileOperations.readFromFile("./src/test/res/weather-schema.json");
+		get("/Pune").then().assertThat().body(matchesJsonSchema(schema));
 
-	}*/
-	
+	}
+
 	/*@Test
 	public void testingPOSTMethod() {
 
 		System.out.println("Running Demo Test2  (POST) ====");
-		
+
 		RestAssured.baseURI ="https://stage.beta.masterpassteststore.com/java/legacy-api/masterpass/transaction/postback";
 		RequestSpecification httpRequest = RestAssured.given();
-		
-		String requestParams = FileOperations.readFromFile("./src/main/res/requestBody.json");
+
+		String requestParams = FileOperations.readFromFile("./src/test/res/requestBody.json");
 		System.out.println(requestParams);
-	
+
 		httpRequest.body(requestParams.toString());
 		//Response response = httpRequest.request(Method.POST, "/POSTS");
 		Response response = httpRequest.post("/POSTS");
@@ -62,30 +70,30 @@ public class DemoTests {
 		//Assert.assertEquals(successCode, "OPERATION_SUCCESS", "Correct Success code was returned");
 
 	}*/
-	
+
 	@Test
-	public void testingPOSTDEMOQAMethod() {
+	public void testingPOSTMethod() {
 
 		System.out.println("Running Demo Test2  (POST) ====");
-		
+
 		RestAssured.baseURI ="https://jsonplaceholder.typicode.com";
 		RequestSpecification httpRequest = RestAssured.given();
 
 		/*JSONObject requestParams = new JSONObject();
-		
+
 		requestParams.put("userId", 76818); // Cast
 		requestParams.put("id", 76818);
 		requestParams.put("title", "sdimpleuser2dd2011");
 		requestParams.put("body", "password1");*/
-		
-		String requestParams = FileOperations.readFromFile("./src/main/res/requestBody1.json");
-		
+
+		String requestParams = FileOperations.readFromFile("./src/test/res/requestBody1.json");
+
 		System.out.println("Request Params :" + requestParams.toString());
-		
+
 		Map<String, String> headerPrams = new HashMap<String, String>();
 		headerPrams.put("Content-Type", "application/json");
 		headerPrams.put("user-agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
-		 
+
 		httpRequest.headers(headerPrams);
 		httpRequest.body(requestParams.toString());
 		Response response = httpRequest.request(Method.POST, "/POSTS");
@@ -93,7 +101,7 @@ public class DemoTests {
 
 		int statusCode = response.getStatusCode();
 		Assert.assertEquals(statusCode, 201);
-		
+
 		System.out.println("Value 1 : \n" +  response.contentType());
 		System.out.println("Value 2 : \n" +  response.getContentType());
 
@@ -102,6 +110,36 @@ public class DemoTests {
 		System.out.println("Value 5 : \n" +  response.getHeaders());
 		//String successCode = response.jsonPath().get("SuccessCode");
 		//Assert.assertEquals(successCode, "OPERATION_SUCCESS", "Correct Success code was returned");
+
+	}
+
+
+	@Test
+	public void testingPUTMethod() {
+
+		System.out.println("Running Demo Test2  (POST) ====");
+
+		RestAssured.baseURI ="https://reqres.in/api";
+		RequestSpecification httpRequest = RestAssured.given();
+
+		String requestBody = "{\r\n" + 
+				"    \"name\": \"alex\",\r\n" + 
+				"    \"job\": \"zion resident\"\r\n" + 
+				"}";
+
+		httpRequest.body(requestBody);
+		
+		Map<String, String> headerParams = new HashMap<String, String>();
+		headerParams.put("Content-Type", "application/json");
+		headerParams.put("user-agent", "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+
+		httpRequest.headers(headerParams);
+		
+		Response response = httpRequest.request(Method.PUT, "/users/20000");
+		
+		Assert.assertEquals(response.getStatusCode(), 200, "Response code doesn't match");
+		String responseHeaders = response.getHeaders().toString();
+
 
 	}
 
