@@ -1,4 +1,4 @@
-package com.resrassured.demo;
+package com.restassured.demoTests;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
