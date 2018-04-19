@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.restassured.commonUtils.MyThreadLocal;
 import com.restassured.utilities.FileOperations;
 
 import io.restassured.RestAssured;
@@ -22,7 +23,8 @@ public class DemoTests {
 
 	@Test
 	public void testingGETMethod() {
-
+		MyThreadLocal.get().saveData("property1", "gsahgdsagjhghjsaghdgsahdgs");
+		
 		System.out.println("Running Demo Test1 (GET) ====");
 
 		// Specify the base URL to the RESTful web service
@@ -46,6 +48,7 @@ public class DemoTests {
 		
 		String schema = FileOperations.readFromFile("./src/test/res/weather-schema.json");
 		get("/Pune").then().assertThat().body(matchesJsonSchema(schema));
+		//response.then().body("Humidity", equalTo("33 Percent"));
 
 	}
 
