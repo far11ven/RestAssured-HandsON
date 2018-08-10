@@ -57,7 +57,7 @@ public class DemoTests {
 
 		System.out.println("Running Demo Test2  (POST) ====");
 
-		RestAssured.baseURI ="https://stage.beta.masterpassteststore.com/java/legacy-api/masterpass/transaction/postback";
+		RestAssured.baseURI ="https://DSADSAD";
 		RequestSpecification httpRequest = RestAssured.given();
 
 		String requestParams = FileOperations.readFromFile("./src/test/res/requestBody.json");
@@ -176,7 +176,7 @@ public class DemoTests {
 		System.out.println("Running Demo Test1 (POST) ====");
 
 		// Specify the base URL to the RESTful web service
-		RestAssured.baseURI = "https://stage.beta.masterpassteststore.com/java/legacy-api/masterpass/transaction/postback";
+		RestAssured.baseURI = "https://SADSAD";
 
 		// Get the RequestSpecification of the request that you want to sent
 		// to the server. The server is specified by the BaseURI that we have
